@@ -5,6 +5,12 @@ import org.gradle.api.Plugin
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.api.tasks.testing.Test
+
+import org.gradle.api.tasks.javadoc.Javadoc
+import org.gradle.api.tasks.bundling.Jar
+
+import org.gradle.api.publish.maven.MavenPublication
 
 public class GradleSensibleDefaultsPlugin implements Plugin<Project> {
 

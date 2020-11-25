@@ -9,6 +9,7 @@
 plugins {
     // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
     id 'java-gradle-plugin'
+    id "com.gradle.plugin-publish" version "0.12.0"
 
     // Apply the Groovy plugin to add support for Groovy
     id 'groovy'
@@ -31,6 +32,22 @@ gradlePlugin {
         sensibledefaults {
             id = 'ca.retrylife.gradle.sensibledefaults'
             implementationClass = 'ca.retrylife.gradle.sensibledefaults.GradleSensibleDefaultsPlugin'
+            version = "1.0.4"
         }
     }
+}
+
+
+pluginBundle {
+  website = 'https://retrylife.ca'
+  vcsUrl = 'https://github.com/Ewpratten/gradle-sensible-defaults'
+  description = 'My personal Gradle plugin for handling buildscript code I commonly use'
+  tags = ['qol', 'personal-plugin']
+
+  plugins {
+    sensibledefaults {
+      // id is captured from java-gradle-plugin configuration
+      displayName = 'Gradle Sensible Defaults'
+    }
+  }
 }
