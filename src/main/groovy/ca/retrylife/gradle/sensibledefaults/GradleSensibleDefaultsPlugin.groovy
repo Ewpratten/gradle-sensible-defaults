@@ -86,6 +86,20 @@ public class GradleSensibleDefaultsPlugin implements Plugin<Project> {
                     }
                 }
             }
+
+            // GH deploy
+            if (settings.ghRepo != null) {
+                repositories {
+                    maven {
+                        name = 'GitHubPackages'
+                        url = uri("https://maven.pkg.github.com/${settings.ghRepo}")
+                        credentials {
+                            username = project.findProperty('gpr.user') ?: System.getenv('USERNAME')
+                            password = project.findProperty('gpr.key') ?: System.getenv('TOKEN')
+                        }
+                    }
+                }
+            }
         }
 
         // Unit test outputs
@@ -124,6 +138,7 @@ public class GradleSensibleDefaultsPlugin implements Plugin<Project> {
                 }
             }
         }
+
     }
 
 }

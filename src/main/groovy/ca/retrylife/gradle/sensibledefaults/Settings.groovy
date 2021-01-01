@@ -26,4 +26,5 @@ class SensiblePluginJavadocSettings {
 class SensiblePluginSettings {
     SensiblePluginJavadocSettings javadoc = new SensiblePluginJavadocSettings();
     boolean srcJar = true;
+    String ghRepo = null;
 }
