@@ -10,7 +10,7 @@ Add the following to the top of your `build.gradle` file`:
 
 ```groovy
 plugins {
-    id "ca.retrylife.gradle.sensibledefaults" version "1.+"
+    id "ca.retrylife.gradle.sensibledefaults" version "1.0.4"
 }
 ```
 
@@ -26,7 +26,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.ca.retrylife.gradle.sensibledefaults:gradle-sensible-defaults:1.+"
+    classpath "gradle.plugin.ca.retrylife.gradle.sensibledefaults:gradle-sensible-defaults:1.0.4"
   }
 }
 
