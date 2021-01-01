@@ -1,5 +1,7 @@
 package ca.retrylife.gradle.sensibledefaults
 
+import org.gradle.api.provider.Property
+
 class SensiblePluginJavadocSettings {
 
     // Enable / Disable all of javadoc
@@ -25,6 +27,6 @@ class SensiblePluginJavadocSettings {
 
 class SensiblePluginSettings {
     SensiblePluginJavadocSettings javadoc = new SensiblePluginJavadocSettings();
-    boolean srcJar = true;
-    String ghRepo = null;
+    boolean srcJar =true;
+    // Property<String> ghRepo ;
 }

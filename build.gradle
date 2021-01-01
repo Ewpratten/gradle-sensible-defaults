@@ -32,7 +32,7 @@ gradlePlugin {
         sensibledefaults {
             id = 'ca.retrylife.gradle.sensibledefaults'
             implementationClass = 'ca.retrylife.gradle.sensibledefaults.GradleSensibleDefaultsPlugin'
-            version = "1.0.5"
+            version = "1.0.18"
         }
     }
 }

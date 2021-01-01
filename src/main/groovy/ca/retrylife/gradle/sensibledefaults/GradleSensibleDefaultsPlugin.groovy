@@ -23,7 +23,7 @@ public class GradleSensibleDefaultsPlugin implements Plugin<Project> {
         def settings = project.extensions.create('sensible', SensiblePluginSettings)
 
         // Javadoc task
-        if (settings.javadoc.enabled) {
+        if (project.sensible.javadoc.enabled) {
             // Javadoc generation task
             project.task('sensibleJavadoc', type: Javadoc) {
                 source = project.sourceSets.main.allJava
@@ -37,9 +37,9 @@ public class GradleSensibleDefaultsPlugin implements Plugin<Project> {
                 options.author true
 
                 // External references and options
-                options.links = settings.javadoc.references
+                options.links = project.sensible.javadoc.references
 
-                settings.javadoc.options.each {
+                project.sensible.javadoc.options.each {
                     options.addStringOption it
                 }
             }
@@ -54,7 +54,7 @@ public class GradleSensibleDefaultsPlugin implements Plugin<Project> {
         }
 
         // SRCJAR
-        if (settings.srcJar) {
+        if (project.sensible.srcJar) {
             project.task('sensibleSrcJar', type: Jar) {
                 from project.sourceSets.main.allJava
                 classifier = 'sources'
@@ -75,27 +75,41 @@ public class GradleSensibleDefaultsPlugin implements Plugin<Project> {
         }
 
         project.publishing {
-            publications {
-                maven(MavenPublication) {
-                    from project.components.java
-                    if (settings.srcJar) {
-                        artifact project.tasks.sensibleSrcJar
-                    }
-                    if (settings.javadoc.enabled) {
-                        artifact project.tasks.sensibleJavadocJar
-                    }
-                }
-            }
 
             // GH deploy
-            if (settings.ghRepo != null) {
+            if (project.ghRepo != null) {
+                println "Using ${project.ghRepo} as publish target"
                 repositories {
                     maven {
                         name = 'GitHubPackages'
-                        url = uri("https://maven.pkg.github.com/${settings.ghRepo}")
+                        url = Project.uri("https://maven.pkg.github.com/${project.ghRepo}")
                         credentials {
                             username = project.findProperty('gpr.user') ?: System.getenv('USERNAME')
                             password = project.findProperty('gpr.key') ?: System.getenv('TOKEN')
+                        }
+                    }
+                }
+                publications {
+                    gpr(MavenPublication) {
+                        from project.components.java
+                        if (project.sensible.srcJar) {
+                            artifact project.tasks.sensibleSrcJar
+                        }
+                        if (project.sensible.javadoc.enabled) {
+                            artifact project.tasks.sensibleJavadocJar
+                        }
+                    }
+                }
+            }else {
+                println "Not using GitHub as a publish target"
+                publications {
+                    maven(MavenPublication) {
+                        from project.components.java
+                        if (project.sensible.srcJar) {
+                            artifact project.tasks.sensibleSrcJar
+                        }
+                        if (project.sensible.javadoc.enabled) {
+                            artifact project.tasks.sensibleJavadocJar
                         }
                     }
                 }
@@ -138,7 +152,6 @@ public class GradleSensibleDefaultsPlugin implements Plugin<Project> {
                 }
             }
         }
-
     }
 
 }
